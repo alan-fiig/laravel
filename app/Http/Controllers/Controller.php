@@ -9,4 +9,9 @@ use Illuminate\Routing\Controller as BaseController;
 class Controller extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
+    public function view($route, $data = [])
+    {
+        extract($data);
+        $route = str_replace('.', '/', $route);
+    }
 }

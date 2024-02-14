@@ -9,7 +9,11 @@ class CursoController extends Controller
 {
     public function index()
     {
-        return view("cursos.index");
+        // return view("cursos.index");
+        return view('cursos.index', [
+            'title' => 'PHP',
+            'description' => 'Framwork Laravel'
+        ]);
     }
 
     public function create()

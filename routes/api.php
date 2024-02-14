@@ -17,6 +17,19 @@ use App\Http\Controllers\api\ProductController;
 
 Route::apiResource('products', ProductController::class);
 
+// Route::get('/generate-signed-url/{id}', 'ProductController@generarUrlFirmada');
+
+// Route::get('/products/{id}', ProductController::class)->name('products.show.signed');
+
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+// Route::middleware(['throttle:minute'])->group(function () {
+//     Route::get('/products', [ProductController::class, 'getProducts']);
+// });
+
+// Route::middleware(['throttle:5,1'])->group(function () {
+//     Route::patch('/products', [ProductController::class, 'updateProducts']);
+// });

@@ -36,5 +36,9 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
         });
+
+        // RateLimiter::for('minute', function (Request $request) {
+        //     return Limit::perMinute(5)->by($request->ip());
+        // });
     }
 }

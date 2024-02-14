@@ -5,12 +5,20 @@ namespace App\Http\Controllers\api;
 use App\Models\Product;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+// use Illuminate\Support\Facades\URL;
 
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // public function generarUrlFirmada($productId)
+    // {
+    //     $urlFirmada = URL::temporarySignedRoute(
+    //         'products.show.signed',
+    //         now()->addMinutes(30),
+    //         ['id' => $productId]
+    //     );
+    //     return response()->json(['signed_url' => $urlFirmada]);
+    // }
+
     public function index()
     {
         $products = Product::all();
@@ -22,14 +30,20 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
+        $validated = $request->validate([
+            'title' => 'required|alpha|max:10|unique:products',
+            'description' => 'required|alpha|max:10',
+        ]);
+
         $product = Product::create($request->all());
 
         return response()->json([
             'status' => true,
-            'message' => "Product Created successfully!",
+            'message' => "Product created successfully!",
             'product' => $product
         ], 200);
     }
+
     /**
      * Display the specified resource.
      */

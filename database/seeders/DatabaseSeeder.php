@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\Curso;
+use App\Models\Product;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -15,7 +16,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        Curso::factory(50)->create();
-        User::factory(20)->create();
+        $cursos = Curso::factory(5)->create();
+
+        User::factory(15)->create([
+            'curso_id' => function () use ($cursos) {
+                return $cursos->random()->id;
+            },
+        ]);
+
+        Product::factory(10)->create();
     }
 }

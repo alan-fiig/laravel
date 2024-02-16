@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Validation\Rule;
 
 class ProductController extends Controller
 {
@@ -67,19 +68,33 @@ class ProductController extends Controller
         }
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Product $product)
     {
-        //
+        $validated = $request->validate([
+            'title' => [
+                'alpha',
+                'max:10',
+                Rule::unique('products')->ignore($product->id),
+            ],
+            'description' => 'alpha|max:10',
+        ]);
+
+        $product->update($request->all());
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Product updated successfully!',
+            'product' => $product,
+        ], 200);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Product $product)
     {
-        //
+        $product->delete();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Product deleted successfully!',
+        ], 200);
     }
 }

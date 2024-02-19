@@ -97,4 +97,11 @@ class ProductController extends Controller
             'message' => 'Product deleted successfully!',
         ], 200);
     }
+
+    public function getProductsByDescriptionLength($length)
+    {
+        $products = Product::descriptionLengthShorterThan($length)->get();
+
+        return response()->json(['products' => $products]);
+    }
 }

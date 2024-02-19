@@ -21,6 +21,7 @@ Route::post('/products/signed/{id}', 'App\Http\Controllers\api\ProductController
 
 Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show.signed')->middleware(['signed', 'throttle:10,1']);
 
+Route::get('/products/description-length/{length}', [ProductController::class, 'getProductsByDescriptionLength']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

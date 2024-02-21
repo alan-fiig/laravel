@@ -3,17 +3,24 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Curso;
 use Illuminate\Http\Request;
 
 class CursoController extends Controller
 {
     public function index()
     {
-        // return view("cursos.index");
-        return view('cursos.index', [
-            'title' => 'PHP',
-            'description' => 'Framwork Laravel'
+        $products = Curso::all();
+        return response()->json([
+            'status' => true,
+            'products' => $products
         ]);
+
+        // return view("cursos.index");
+        // return view('cursos.index', [
+        //     'title' => 'PHP',
+        //     'description' => 'Framwork Laravel'
+        // ]);
     }
 
     public function create()

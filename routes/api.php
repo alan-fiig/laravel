@@ -4,6 +4,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\api\ProductController;
 use App\Http\Controllers\CursoController;
+use App\Models\User;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +29,11 @@ Route::middleware(['throttle:5,1'])->group(function () {
     Route::get('/products', [ProductController::class, 'index']);
     Route::get('/cursos', [CursoController::class, 'index']);
 });
+
+Route::get('/users', function () {
+    $users = User::all();
+    return response()->json(['users' => $users]);
+})->name('users.index')->middleware('custom.restrict');
 
 Route::get('/products/description-length/{length}', [ProductController::class, 'getProductsByDescriptionLength']);
 

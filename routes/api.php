@@ -32,7 +32,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::get('/products/description-length/{length}', [ProductController::class, 'getProductsByDescriptionLength']);
 });
 
-Route::post("login", [UserController::class, 'index']);
+Route::post("/login", [UserController::class, 'index']);
 
 
 // Route::middleware(['throttle:5,1'])->group(function () {
